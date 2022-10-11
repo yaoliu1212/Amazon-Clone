@@ -26,9 +26,12 @@ function Header() {
             {/* 3. nevigation bar: signIn + orders + prime + basket*/}
             <div className='header_nav'>
                 {/* sign in */}
+
                 <div className='header_option'>
                     <span className='header_optionLineOne'>Hello Guest</span>
-                    <span className='header_optionLineTwo'>Sign In</span>
+                    <Link to='/login'>
+                        <span className='header_optionLineTwo'>Sign In</span>
+                    </Link>
                 </div>
                 {/* orders */}
                 <div className='header_option'>

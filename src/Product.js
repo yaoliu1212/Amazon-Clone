@@ -1,7 +1,24 @@
 import React from 'react'
 import './Product.css'
+import { useStateValue } from './StateProvider'
 
-function Project({ title, image, price, rating }) {
+function Product({ id, title, image, price, rating }) {
+    // const [state, dispatch] = useStateValue;
+    const [{ basket }, dispatch] = useStateValue();
+    console.log('this is the basket >>>>>', basket);
+    const addToBasket = () => {
+        //dispatch the item into the data layer
+        dispatch({
+            type: 'ADD_TO_BASKET',
+            item: {
+                id: id,
+                title: title,
+                image: image,
+                price: price,
+                rating: rating,
+            },
+        });
+    };
     return (
         // Product = product_info + image + button
         <div className='product'>
@@ -30,9 +47,56 @@ function Project({ title, image, price, rating }) {
             <img src={image} alt='' />
 
             {/* 3. add button */}
-            <button>add</button>
+            <button onClick={addToBasket}>add</button>
         </div>
-    )
+    );
 }
 
-export default Project
+export default Product;
+
+// import React from "react";
+// import "./Product.css";
+// import { useStateValue } from "./StateProvider";
+
+// function Product({ id, title, image, price, rating }) {
+//     const [{ basket }, dispatch] = useStateValue();
+
+//     const addToBasket = () => {
+//         // dispatch the item into the data layer
+//         dispatch({
+//             type: "ADD_TO_BASKET",
+//             item: {
+//                 id: id,
+//                 title: title,
+//                 image: image,
+//                 price: price,
+//                 rating: rating,
+//             },
+//         });
+//     };
+
+//     return (
+//         <div className="product">
+//             <div className="product__info">
+//                 <p>{title}</p>
+//                 <p className="product__price">
+//                     <small>$</small>
+//                     <strong>{price}</strong>
+//                 </p>
+//                 <div className="product__rating">
+//                     {Array(rating)
+//                         .fill()
+//                         .map((_, i) => (
+//                             <p>🌟</p>
+//                         ))}
+//                 </div>
+//             </div>
+
+//             <img src={image} alt="" />
+
+//             <button onClick={addToBasket}>Add to Basket</button>
+//         </div>
+//     );
+// }
+
+// export default Product;

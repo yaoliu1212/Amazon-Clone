@@ -20,7 +20,7 @@
     width: 100%;
     /* at the end layer */
     z-index: -1;
-    margin-bottom: -150px;
+    margin-bottom: -160px;
     /* make color */
     mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
 } 

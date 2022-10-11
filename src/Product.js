@@ -1,7 +1,7 @@
 import React from 'react'
 import './Product.css'
 
-function Project() {
+function Project({ title, image, price, rating }) {
     return (
         // Product = product_info + image + button
         <div className='product'>
@@ -9,20 +9,25 @@ function Project() {
             {/* 1. product_info = description + price + rating */}
             <div className='product__info'>
                 {/* product description */}
-                <p>product description</p>
+                <p>{title}</p>
                 {/* product price */}
                 <p className='product__price'>
                     <small>$</small>
-                    <strong>19.99</strong>
+                    <strong>{price}</strong>
                 </p>
                 {/* product rating */}
                 <div className='product__rating'>
-                    <p>⭐</p>
+                    {/* <p>rating</p> */}
+                    {Array(rating)
+                        .fill()
+                        .map((_, i) => (
+                            <p>🌟</p>
+                        ))}
                 </div>
             </div>
 
             {/* 2. product image */}
-            <img src='https://images-na.ssl-images-amazon.com/images/I/51Zymoq7UnL._SX325_BO1,204,203,200_.jpg' alt='' />
+            <img src={image} alt='' />
 
             {/* 3. add button */}
             <button>add</button>

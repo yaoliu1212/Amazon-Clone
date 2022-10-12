@@ -16,22 +16,9 @@ const reducer = (state, action) => {
                 basket: [...state.basket, action.item],
             };
         case "REMOVE_FROM_BASKET":
-            // console.log("action index 1 >>>>>>>> " + action.item)
-            // console.log("action index 2 >>>>>>>> " + action.item.id)
-            // console.log("action index 3 >>>>>>>> " + state.item.id)
-            // console.log("basket id >>>>>> " + state.basket[0].id) //12321341
-            // const basketItem = state.basket;
-            // const target = (element) => element === 12321341
-            // console.log("index >>>>> " + basketItem.findIndex(target))
             const index = state.basket.findIndex(
                 (basketItem) => basketItem.id === action.item.id
             );
-            // const index = -1;
-            // for (var basketItem in state.basket) {
-            //     // if(basketItem.id == action.item.id)
-            // }
-
-            // console.log('index >>>>>>>>> ' + index)
             let newBasket = [...state.basket];
 
             if (index >= 0) {
@@ -45,6 +32,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 basket: newBasket
+            }
+        case "SET_USER":
+            return {
+                ...state,
+                user: action.user
             }
         default:
             return state;

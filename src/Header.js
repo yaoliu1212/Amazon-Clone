@@ -4,9 +4,17 @@ import SearchIcon from '@mui/icons-material/Search';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import { Link } from "react-router-dom";
 import { useStateValue } from './StateProvider'
+import { auth } from "./firebase";
 
 function Header() {
-    const [{ basket }, dispatch] = useStateValue();
+    const [{ basket, user }, dispatch] = useStateValue();
+    const handleAuthentication = () => {
+        if (user) {
+            console.log("auth user >>>>>>> " + auth.user);
+            auth.signOut();
+        }
+        // else{}
+    }
     return (
         <div className='header'>
             {/* 1. amazon logo image */}
@@ -26,13 +34,14 @@ function Header() {
             {/* 3. nevigation bar: signIn + orders + prime + basket*/}
             <div className='header_nav'>
                 {/* sign in */}
-
-                <div className='header_option'>
-                    <span className='header_optionLineOne'>Hello Guest</span>
-                    <Link to='/login'>
-                        <span className='header_optionLineTwo'>Sign In</span>
-                    </Link>
-                </div>
+                <Link to={!user && '/login'}>
+                    <div onClick={handleAuthentication} className='header_option'>
+                        <span className='header_optionLineOne'>Hello {user ? user.email : 'Guest'}</span>
+                        <Link to='/login'>
+                            <span className='header_optionLineTwo'>{user ? 'Sign Out' : 'Sign In'} </span>
+                        </Link>
+                    </div>
+                </Link>
                 {/* orders */}
                 <div className='header_option'>
                     <span className='header_optionLineOne'>Returns</span>

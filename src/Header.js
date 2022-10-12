@@ -22,7 +22,7 @@ function Header() {
                 <img
                     className='header_logo'
                     src='https://pngimg.com/uploads/amazon/amazon_PNG11.png'
-                />
+                    alt='' />
             </Link>
 
             {/* 2. search bar: input field + search icon */}

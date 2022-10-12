@@ -1,5 +1,3 @@
-import { ShoppingBasketOutlined } from "@material-ui/icons";
-
 export const initialState = {
     basket: [],
 }

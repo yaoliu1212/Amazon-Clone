@@ -1,8 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Login.css';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+// import { useState } from './StateProvider'
+import { auth } from "./firebase";
 
 function Login() {
+    const history = useNavigate();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const signIn = (e) => {
+        e.preventDefault();//prevent refresh the page
+        //firebase login
+        auth
+            .signInWithEmailAndPassword(email, password)
+            .then(auth => {
+                // console.log(auth);
+                history('/');
+            })
+
+            .catch(error => alert("error from signIn " + error.message))
+    }
+
+    const register = (e) => {
+        e.preventDefault();
+        //firebase register
+        auth
+            .createUserWithEmailAndPassword(email, password)
+            .then((auth) => {
+                if (auth) {
+                    history('/')
+                }
+            })
+            .catch(error => alert("error from register " + error.message))
+    }
     return (
         // Login = amazonImage + logIn Container
         <div className='login'>
@@ -17,16 +47,16 @@ function Login() {
                 {/* 2. form = firstInput + secondInput + signIn Button */}
                 <form>
                     <h5>E-mail</h5>
-                    <input type="text" />
+                    <input type="text" value={email} onChange={e => setEmail(e.target.value)} />
                     <h5>password</h5>
-                    <input type="password" />
-                    <button className='login_signInButton'>Sign In</button>
+                    <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
+                    <button className='login_signInButton' type='submit' onClick={signIn}>Sign In</button>
                 </form>
                 {/* 3. acknowledgement */}
                 <p>By signing-in you agree to the AMAZON FAKE CLONE Conditions of Use & Sale. Please
                     see our Privacy Notice, our Cookies Notice and our Interest-Based Ads Notice.</p>
                 {/* 4. create Account Button */}
-                <button className='login__registerButton'>Create Account</button>
+                <button className='login__registerButton' onClick={register}>Create Account</button>
             </div>
         </div >
     )
